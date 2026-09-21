@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { Analytics } from "@/components/analytics";
 import { siteContent } from "@/content";
 import "./globals.css";
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="min-h-screen">
         {children}
         <Analytics />
+        <VercelAnalytics />
       </body>
     </html>
   );
