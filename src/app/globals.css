@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+/*
+ * The site wears the app's design system. Palette, weights and restraint are
+ * the ones the panel and the icon system use; the two products should read as
+ * one thing. Light and dark follow the system, as the app does.
+ */
+
+@theme inline {
+  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* Brand constants (from the brief) */
+  --ink: #141413;
+  --paper: #FAF9F5;
+  --accent: #D97757;
+  --failure: #C2564A;
+  --mid: #B0AEA5;
+  --light: #E8E6DC;
+
+  /* Page */
+  --bg: var(--paper);
+  --bg-raised: #FFFFFF;
+  --text: var(--ink);
+  --text-2: #5C5B55;      /* 6.9:1 on paper */
+  --text-3: #6E6C66;      /* 5.3:1 on paper, for 13px+ only */
+  --hairline: rgba(20, 20, 19, 0.10);
+  --rule: rgba(20, 20, 19, 0.16);
+
+  /* Accent as text needs to be darker than the accent as a fill. */
+  --accent-text: #A64B33;  /* 5.1:1 on paper */
+  --on-accent: var(--ink); /* 5.9:1 on the accent; white would be 3.1:1 */
+
+  /* The macOS menu bar, both appearances, for the mock. */
+  --bar-light: rgba(246, 245, 241, 0.94);
+  --bar-dark: rgba(30, 30, 29, 0.94);
+  --bar: var(--bar-light);
+  --bar-fg: #141413;
+
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(20, 20, 19, 0.06), 0 24px 60px -24px rgba(20, 20, 19, 0.28);
+  --max-width: 1068px;
+  --gutter: 22px;
+  --section-y: clamp(88px, 12vw, 144px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0F0F0E;
+    --bg-raised: #1C1C1B;
+    --text: var(--paper);
+    --text-2: #A8A69E;
+    --text-3: #8F8D86;
+    --hairline: rgba(250, 249, 245, 0.10);
+    --rule: rgba(250, 249, 245, 0.18);
+    --accent-text: #E8926F;
+    --bar: var(--bar-dark);
+    --bar-fg: #FAF9F5;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: -0.008em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+
+h1 {
+  font-size: clamp(38px, 6.4vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: clamp(30px, 4.2vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+h3 {
+  font-size: 17px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Layout ------------------------------------------------------------------ */
+
+.shell {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section + .section { border-top: 1px solid var(--hairline); }
+
+.lede {
+  font-size: clamp(18px, 1.6vw, 21px);
+  line-height: 1.45;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+.measure { max-width: 68ch; }
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Buttons ----------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 980px;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 120ms ease-out, color 120ms ease-out, opacity 120ms ease-out;
+}
+
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { background: #C86646; }
+
+.btn-quiet {
+  background: transparent;
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+.btn-quiet:hover { background: var(--hairline); }
+
+.btn .price {
+  padding-left: 10px;
+  border-left: 1px solid rgba(20, 20, 19, 0.25);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;   /* tap target */
+  color: var(--text-2);
+  transition: color 120ms ease-out;
+}
+.link:hover { color: var(--text); }
+
+/* Hero mark ---------------------------------------------------------------- */
+
+.hero-mark {
+  position: relative;
+  width: clamp(168px, 26vw, 280px);
+  aspect-ratio: 503 / 496;
+  /* The ring's visual weight sits low-right; nudge so it reads centred. */
+  transform: translateX(2%);
+}
+
+.hero-mark::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(217, 119, 87, 0.22), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-mark img { position: relative; display: block; width: 100%; height: auto; }
+
+/* Hairline rows ------------------------------------------------------------ */
+
+.rows > * { border-top: 1px solid var(--hairline); }
+.rows > *:last-child { border-bottom: 1px solid var(--hairline); }
+
+/* Panel screenshot -------------------------------------------------------- */
+
+.shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Border beam (pricing card only) ----------------------------------------- */
+
+@keyframes border-beam { 100% { offset-distance: 100%; } }
+.animate-border-beam { animation: border-beam calc(var(--duration) * 1s) infinite linear; }
+
+/* Reduced motion ---------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, ::before, ::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+  }
+}

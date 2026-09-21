@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; background: #141413; }
+  a { color: #D97757; text-decoration: none; }
+  a:hover { color: #E8926F; }
+  @keyframes precessRy { 0%, 100% { ry: 5px } 50% { ry: .9px } }
+  @keyframes precessWeight { 0%, 100% { stroke-width: 1.7 } 50% { stroke-width: 2.5 } }
+  @keyframes precessRyThin { 0%, 100% { ry: 5px } 50% { ry: 1.1px } }
+  @keyframes gemQuarterSpin { to { transform: rotate(90deg) } }
+  @keyframes doneBloom {
+    0%   { transform: scale(.86) }
+    6%   { transform: scale(1.2) }
+    11%  { transform: scale(.97) }
+    15%, 100% { transform: scale(1) }
+  }
+  @keyframes doneHalo {
+    0%   { transform: scale(.55); opacity: .85 }
+    13%  { transform: scale(1.55); opacity: 0 }
+    100% { transform: scale(1.55); opacity: 0 }
+  }
+  @keyframes needsPing {
+    0%   { transform: scale(.5); opacity: .8 }
+    60%  { transform: scale(1.5); opacity: 0 }
+    100% { transform: scale(1.5); opacity: 0 }
+  }
+  @keyframes needsCore { 0%, 100% { transform: scale(1) } 50% { transform: scale(1.05) } }
+  @keyframes pipTravel {
+    0%   { offset-distance: 0% }
+    12.5%{ offset-distance: 7% }
+    25%  { offset-distance: 25% }
+    37.5%{ offset-distance: 43% }
+    50%  { offset-distance: 50% }
+    62.5%{ offset-distance: 57% }
+    75%  { offset-distance: 75% }
+    87.5%{ offset-distance: 93% }
+    100% { offset-distance: 100% }
+  }
+  @keyframes dotSweep { to { transform: rotate(360deg) } }
+</style>
+</helmet>
+
+<svg width="0" height="0" style="position: absolute; overflow: hidden" aria-hidden="true">
+  <defs>
+
+    <symbol id="g-idle" viewBox="0 0 36 36">
+      <path d="M7.19 21.93A11.5 5 -20 0 1 28.81 14.07" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+      <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="currentColor" />
+      <path d="M28.81 14.07A11.5 5 -20 0 1 7.19 21.93" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+    </symbol>
+
+    <symbol id="g-work" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="11.5" ry="5" fill="none" stroke="currentColor" stroke-width="1.7" transform="rotate(-20 18 18)" style="animation: precessRy 4s steps(24) infinite, precessWeight 4s steps(24) infinite; animation-play-state: var(--anim, running)" />
+      <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="currentColor" style="transform-box: view-box; transform-origin: 18px 18px; animation: gemQuarterSpin 8s steps(96) infinite; animation-play-state: var(--anim, running)" />
+    </symbol>
+
+    <symbol id="g-work-static" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="11.5" ry="2.6" fill="none" stroke="currentColor" stroke-width="2.2" transform="rotate(-20 18 18)" />
+      <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="currentColor" style="transform-box: view-box; transform-origin: 18px 18px; transform: rotate(34deg)" />
+    </symbol>
+
+    <symbol id="g-done" viewBox="0 0 36 36">
+      <circle cx="18" cy="18" r="11" fill="none" stroke="var(--accent)" stroke-width="1.6" style="transform-box: view-box; transform-origin: 18px 18px; animation: doneHalo 6s steps(12) infinite; animation-play-state: var(--anim, running)" />
+      <g style="transform-box: view-box; transform-origin: 18px 18px; animation: doneBloom 6s steps(11) infinite; animation-play-state: var(--anim, running)">
+        <path d="M7.19 21.93A11.5 5 -20 0 1 28.81 14.07" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" />
+        <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="var(--accent)" />
+        <path d="M28.81 14.07A11.5 5 -20 0 1 7.19 21.93" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" />
+      </g>
+    </symbol>
+
+    <symbol id="g-needs" viewBox="0 0 36 36">
+      <circle cx="18" cy="18" r="11.5" fill="none" stroke="var(--accent)" stroke-width="1.5" style="transform-box: view-box; transform-origin: 18px 18px; animation: needsPing 3.2s steps(24) infinite; animation-play-state: var(--anim, running)" />
+      <circle cx="18" cy="18" r="11.5" fill="none" stroke="var(--accent)" stroke-width="1.5" style="transform-box: view-box; transform-origin: 18px 18px; animation: needsPing 3.2s steps(24) infinite -1.6s; animation-play-state: var(--anim, running)" />
+      <g style="transform-box: view-box; transform-origin: 18px 18px; animation: needsCore 3.2s steps(19) infinite; animation-play-state: var(--anim, running)">
+        <path d="M7.19 21.93A11.5 5 -20 0 1 28.81 14.07" fill="none" stroke="var(--accent)" stroke-width="1.3" stroke-linecap="round" />
+        <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="var(--accent)" />
+        <path d="M28.81 14.07A11.5 5 -20 0 1 7.19 21.93" fill="none" stroke="var(--accent)" stroke-width="1.3" stroke-linecap="round" />
+      </g>
+    </symbol>
+
+    <symbol id="g-failed" viewBox="0 0 36 36">
+      <path d="M7.19 21.93A11.5 5 -20 0 1 28.81 14.07" fill="none" stroke="var(--red)" stroke-width="1.3" stroke-linecap="round" />
+      <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="var(--red)" />
+      <path d="M28.81 14.07A11.5 5 -20 0 1 7.19 21.93" pathLength="100" fill="none" stroke="var(--red)" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="26 22 26 100" />
+    </symbol>
+
+    <symbol id="s-quiet" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="11.5" ry="5" fill="none" stroke="currentColor" stroke-width=".9" opacity=".55" transform="rotate(-20 18 18)" style="animation: precessRyThin 6s steps(36) infinite; animation-play-state: var(--anim, running)" />
+      <circle cx="18" cy="18" r="1.9" fill="currentColor" />
+    </symbol>
+
+    <symbol id="s-quiet-static" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="11.5" ry="2.4" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".7" transform="rotate(-20 18 18)" />
+      <circle cx="18" cy="18" r="1.9" fill="currentColor" />
+    </symbol>
+
+    <symbol id="s-pip" viewBox="0 0 36 36">
+      <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      <circle cx="0" cy="0" r="2.3" fill="currentColor" style="offset-path: path('M7.19 21.93A11.5 5 -20 0 1 28.81 14.07A11.5 5 -20 0 1 7.19 21.93'); animation: pipTravel 7s steps(10) infinite; animation-play-state: var(--anim, running)" />
+    </symbol>
+
+    <symbol id="s-pip-static" viewBox="0 0 36 36">
+      <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      <circle cx="26.4" cy="21.4" r="2.3" fill="currentColor" />
+    </symbol>
+
+    <symbol id="d-idle" viewBox="0 0 8 8">
+      <circle cx="4" cy="4" r="2.6" fill="none" stroke="#B0AEA5" stroke-width="1.2" />
+    </symbol>
+    <symbol id="d-working" viewBox="0 0 8 8">
+      <circle cx="4" cy="4" r="2.6" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="4.1 2.1" style="transform-box: view-box; transform-origin: 4px 4px; animation: dotSweep 4s steps(48) infinite; animation-play-state: var(--anim, running)" />
+    </symbol>
+    <symbol id="d-done" viewBox="0 0 8 8">
+      <circle cx="4" cy="4" r="3.1" fill="var(--accent)" />
+    </symbol>
+    <symbol id="d-needs" viewBox="0 0 8 8">
+      <path d="M4 .7L7.3 4L4 7.3L.7 4Z" fill="var(--accent)" />
+    </symbol>
+    <symbol id="d-failed" viewBox="0 0 8 8">
+      <circle cx="4" cy="4" r="2.9" fill="none" stroke="var(--red)" stroke-width="1.2" />
+      <path d="M2.1 5.9L5.9 2.1" fill="none" stroke="var(--red)" stroke-width="1.2" stroke-linecap="round" />
+    </symbol>
+
+    <symbol id="i-terminal" viewBox="0 0 16 16">
+      <rect x="1.3" y="2.7" width="13.4" height="10.6" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.3" />
+      <path d="M4.7 6.7L6.3 8L4.7 9.3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="7.6" y="9" width="3.7" height="1.2" rx=".6" fill="currentColor" />
+    </symbol>
+    <symbol id="i-editor" viewBox="0 0 16 16">
+      <rect x="1.3" y="2.7" width="13.4" height="10.6" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.3" />
+      <path d="M4.7 2.9V13.1" fill="none" stroke="currentColor" stroke-width="1.3" />
+      <path d="M8.4 6.6L6.9 8L8.4 9.4M10.8 6.6L12.3 8L10.8 9.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="i-clear" viewBox="0 0 16 16">
+      <path d="M2.2 4.1H9.4M2.2 7.6H8.2M2.2 11.1H5.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+      <path d="M8.7 10.4L10.6 12.3L14.1 8.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="i-settings" viewBox="0 0 16 16">
+      <path d="M2 4.2H14M2 8H14M2 11.8H14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+      <circle cx="5.6" cy="4.2" r="1.8" fill="currentColor" />
+      <circle cx="10.4" cy="8" r="1.8" fill="currentColor" />
+      <circle cx="7.2" cy="11.8" r="1.8" fill="currentColor" />
+    </symbol>
+    <symbol id="i-reveal" viewBox="0 0 16 16">
+      <rect x="2" y="2" width="12" height="12" rx="2.8" fill="none" stroke="currentColor" stroke-width="1.3" />
+      <path d="M6.1 9.9L10 6M6.9 6H10V9.1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+
+    <symbol id="empty-gem" viewBox="0 0 132 104">
+      <g transform="translate(33.6 16) scale(1.8)">
+        <path d="M7.19 21.93A11.5 5 -20 0 1 28.81 14.07" fill="none" stroke="#FAF9F5" stroke-opacity=".22" stroke-width=".9" stroke-linecap="round" />
+        <path d="M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z" fill="none" stroke="#FAF9F5" stroke-opacity=".34" stroke-width="1.1" stroke-linejoin="round" />
+        <path d="M28.81 14.07A11.5 5 -20 0 1 7.19 21.93" fill="none" stroke="#FAF9F5" stroke-opacity=".22" stroke-width=".9" stroke-linecap="round" />
+        <circle cx="18" cy="23.2" r="1.7" fill="var(--accent)" fill-opacity=".75" />
+      </g>
+    </symbol>
+
+  </defs>
+</svg>
+
+<div style="--accent: #D97757; --red: #C2564A; --anim: running; background: #141413; color: #FAF9F5; font-family: 'Instrument Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; padding: 40px 28px 80px; display: flex; flex-direction: column; align-items: center; gap: 56px">
+
+  <header style="width: 100%; max-width: 880px; display: flex; flex-direction: column; gap: 26px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #B0AEA5">Icon, animation &amp; behaviour spec — v2</div>
+      <h1 style="margin: 0; font-size: 36px; line-height: 1.08; font-weight: 600; letter-spacing: -.022em; text-wrap: pretty">Menu bar status system</h1>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #E8E6DC; text-wrap: pretty">The app has one job in the menu bar: answer “is it working?” without being asked. Everything below serves that, and nothing else. The glyph carries the app's identity through silhouette alone — the four-point gem inside its tilted orbit — because a macOS template image gets flattened to solid black on transparent and inverted by the system. No gradient, gloss or 3D depth survives that, so none is used. Colour appears only in the three states that are asking for the user's attention.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: center; gap: 20px; padding: 0 16px; height: 28px; border-radius: 8px; background: #EDEBE4; color: #141413">
+        <span style="flex: 1"></span>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-idle" /></svg>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-work" /></svg>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-done" /></svg>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-needs" /></svg>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-failed" /></svg>
+        <div style="width: 14px; height: 10px; border-radius: 2px; border: 1.4px solid #141413"></div>
+        <div style="width: 11px; height: 11px; border-radius: 50%; border: 1.4px solid #141413"></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 20px; padding: 0 16px; height: 28px; border-radius: 8px; background: #2A2A28; color: #FAF9F5">
+        <span style="flex: 1"></span>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-idle" /></svg>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-work" /></svg>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-done" /></svg>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-needs" /></svg>
+        <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-failed" /></svg>
+        <div style="width: 14px; height: 10px; border-radius: 2px; border: 1.4px solid #FAF9F5"></div>
+        <div style="width: 11px; height: 11px; border-radius: 50%; border: 1.4px solid #FAF9F5"></div>
+      </div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8C8A83">All five states at true size (22pt in a 36pt canvas), light bar and dark bar, template inversion live. The two shapes on the right stand in for neighbouring system items.</div>
+    </div>
+  </header>
+
+  <section style="width: 100%; max-width: 880px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid rgba(232,230,220,.14); padding-bottom: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #D97757">01</span>
+      <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em">The glyph</h2>
+    </div>
+    <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #E8E6DC; text-wrap: pretty">Two forms, drawn in three layers. The gem is a single closed path with concave curved flanks — it reads as a polished four-point crystal rather than a star because the waist of each spike pulls in toward the centre. The orbit is one tilted ellipse, split into a back half and a front half so the gem can sit between them; that overlap is the only depth cue available in flat black, and it is enough. Everything lives on a 36pt canvas with the artwork occupying 8–28, leaving the margin macOS expects around a menu bar item.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start">
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 20px; display: flex; justify-content: center">
+        <svg width="252" height="252" viewBox="0 0 36 36" style="display: block">
+          <rect x="0" y="0" width="36" height="36" rx="2" fill="#0E0E0D" />
+          <g stroke="#D97757" stroke-opacity="{{ gridOpacity }}" stroke-width=".18">
+            <path d="M7 0V36M29 0V36M0 7H36M0 29H36" />
+            <path d="M18 0V36M0 18H36" stroke-opacity="{{ gridOpacityStrong }}" />
+          </g>
+          <ellipse cx="18" cy="18" rx="11.5" ry="5" transform="rotate(-20 18 18)" fill="none" stroke="#B0AEA5" stroke-opacity=".45" stroke-width=".25" stroke-dasharray="1 .8" />
+          <g color="#FAF9F5"><use href="#g-idle" /></g>
+          <g fill="#D97757">
+            <circle cx="18" cy="8" r=".5" /><circle cx="28" cy="18" r=".5" /><circle cx="18" cy="28" r=".5" /><circle cx="8" cy="18" r=".5" />
+            <circle cx="28.81" cy="14.07" r=".5" /><circle cx="7.19" cy="21.93" r=".5" />
+          </g>
+        </svg>
+      </div>
+      <div style="background: #0E0E0D; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; line-height: 1.75; color: #E8E6DC; overflow-x: auto">
+        <div style="color: #B0AEA5">canvas 36×36 · artwork bounds 8…28 (20pt) · optical width 22pt</div>
+        <div style="height: 10px"></div>
+        <div style="color: #D97757">GEM — fill, no stroke</div>
+        <div style="white-space: pre-wrap; word-break: break-all">M18 8C18.9 13.4 22.6 17.1 28 18C22.6 18.9 18.9 22.6 18 28C17.1 22.6 13.4 18.9 8 18C13.4 17.1 17.1 13.4 18 8Z</div>
+        <div style="height: 10px"></div>
+        <div style="color: #D97757">ORBIT — back half</div>
+        <div style="white-space: pre-wrap; word-break: break-all">M7.19 21.93 A11.5 5 -20 0 1 28.81 14.07</div>
+        <div style="color: #D97757">ORBIT — front half</div>
+        <div style="white-space: pre-wrap; word-break: break-all">M28.81 14.07 A11.5 5 -20 0 1 7.19 21.93</div>
+        <div style="height: 10px"></div>
+        <div style="color: #B0AEA5">ellipse rx 11.5 · ry 5 · tilt −20° · centre 18,18<br />z-order: back arc → gem → front arc<br />stroke 1.3 both arcs · caps round<br />no gradients, no gloss, uniform alpha per shape</div>
+      </div>
+    </div>
+    <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #B0AEA5; text-wrap: pretty">Why it survives 16pt: the gem is a solid mass, not an outline, so it never fills in; the orbit crosses it at a tilt, so the two forms stay separable even when each is barely two pixels thick. The 1.3pt arc weight is the floor — thinner and the ring dissolves on a non-Retina display, heavier and the glyph out-shouts the system icons beside it.</p>
+  </section>
+
+  <section style="width: 100%; max-width: 880px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid rgba(232,230,220,.14); padding-bottom: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #D97757">02</span>
+      <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em">Working — precession</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; align-items: start">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #E8E6DC; text-wrap: pretty">The orbit does not slide around itself — it <em>tips</em>. Only the ellipse's vertical radius animates, from 5 down through 0.9 and back, which reads as the whole ring rotating in space through edge-on. The gem meanwhile turns a slow quarter over eight seconds and, because it is fourfold symmetric, arrives exactly where it started: the loop closes with no restart to catch.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #E8E6DC; text-wrap: pretty">Two details do the work. The stroke thickens from 1.7 to 2.5 as the ring approaches edge-on, which is what a real ring of constant thickness does when you foreshorten it — it also keeps the silhouette from thinning to nothing at the halfway point. And the ry curve is ease-in-out rather than linear, so the ring lingers at its open extremes and passes quickly through the flat, which is where a linear version looks mechanical.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #E8E6DC; text-wrap: pretty">It is two interpolated numbers and one rotation — cheap to reimplement, cheap to run, and calm enough to sit in your peripheral vision for an hour. Nothing travels across the screen, so the eye is never pulled sideways into it.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(232,230,220,.12); border: 1px solid rgba(232,230,220,.12); border-radius: 14px; overflow: hidden">
+          <div style="background: #FAF9F5; color: #141413; height: 120px; display: flex; align-items: center; justify-content: center; gap: 16px">
+            <svg width="64" height="64" viewBox="0 0 36 36"><use href="#g-work" /></svg>
+            <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-work" /></svg>
+            <svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-work" /></svg>
+          </div>
+          <div style="background: #2A2A28; color: #FAF9F5; height: 120px; display: flex; align-items: center; justify-content: center; gap: 16px">
+            <svg width="64" height="64" viewBox="0 0 36 36"><use href="#g-work" /></svg>
+            <svg width="22" height="22" viewBox="0 0 36 36"><use href="#g-work" /></svg>
+            <svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-work" /></svg>
+          </div>
+        </div>
+        <div style="background: #0E0E0D; border: 1px solid rgba(232,230,220,.12); border-radius: 14px; padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.75; color: #B0AEA5">
+          <div><span style="color: #E8E6DC">ring period</span> 4.000s · <span style="color: #E8E6DC">gem period</span> 8.000s<br /><span style="color: #E8E6DC">frame rate</span> 12fps — steps(24) ring, steps(96) gem<br /><span style="color: #E8E6DC">timing</span> ease-in-out (ry, stroke) · linear (rotation)</div>
+          <div style="height: 10px"></div>
+          <div style="background: #141413; border-radius: 8px; padding: 11px 12px; white-space: pre; overflow-x: auto; color: #E8E6DC">ring  0%   ry 5.0  stroke 1.7
+      50%  ry 0.9  stroke 2.5
+      100% ry 5.0  stroke 1.7
+gem   0%   rotate  0°
+      100% rotate 90°    (loop-invariant)
+rx 11.5 fixed · tilt −20° fixed
+gem drawn above the ring at all times</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px; background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 14px; padding: 14px 16px">
+          <div style="background: #2A2A28; border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 12px; color: #FAF9F5">
+            <svg width="36" height="36" viewBox="0 0 36 36"><use href="#g-work-static" /></svg>
+            <svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-work-static" /></svg>
+          </div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.65; color: #B0AEA5"><span style="color: #E8E6DC">Reduce Motion fallback</span><br />ry 2.6, stroke 2.2, gem at 34°<br />caught mid-turn — plainly not the idle pose,<br />so “busy” still lands with zero movement</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="width: 100%; max-width: 880px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid rgba(232,230,220,.14); padding-bottom: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #D97757">03</span>
+      <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em">Five states, and when each one shows</h2>
+    </div>
+    <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #E8E6DC; text-wrap: pretty">The menu bar shows one state at a time even when several sessions are running, so the states are ranked. Highest rank present wins: <strong style="color: #FAF9F5; font-weight: 600">needs you → failed → working → done → idle</strong>. Anything that is asking for a human beats anything that is merely reporting, and reporting beats silence. The panel is where per-session truth lives; the glyph is a summary.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 14px">
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 18px; display: grid; grid-template-columns: minmax(190px, 230px) 1fr; gap: 20px; align-items: start">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="font-size: 16px; font-weight: 600">Idle</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #B0AEA5; padding: 3px 7px; border: 1px solid rgba(232,230,220,.18); border-radius: 5px">template</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+            <div style="background: #FAF9F5; color: #141413; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-idle" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-idle" /></svg></div>
+            <div style="background: #2A2A28; color: #FAF9F5; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-idle" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-idle" /></svg></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #E8E6DC; text-wrap: pretty">Solid black at full alpha, no motion. This is the resting pose and the shape everything else is a deviation from, so it has to be the quietest thing in the bar — the front arc is thinned to 1.3 specifically so total ink lands under a typical system glyph.</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.7; color: #B0AEA5"><span style="color: #E8E6DC">shows when</span> app launched, no session running, nothing unacknowledged<br /><span style="color: #E8E6DC">entered from</span> done / failed once the panel has been opened, or after auto-clear<br /><span style="color: #E8E6DC">leaves on</span> first token or tool call from any session</div>
+        </div>
+      </div>
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 18px; display: grid; grid-template-columns: minmax(190px, 230px) 1fr; gap: 20px; align-items: start">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="font-size: 16px; font-weight: 600">Working</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #B0AEA5; padding: 3px 7px; border: 1px solid rgba(232,230,220,.18); border-radius: 5px">template</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+            <div style="background: #FAF9F5; color: #141413; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-work" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-work" /></svg></div>
+            <div style="background: #2A2A28; color: #FAF9F5; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-work" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-work" /></svg></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #E8E6DC; text-wrap: pretty">Precession, described above. It starts at ry 5 — the idle ring's exact geometry — so the transition into working is the animation simply beginning, with nothing to cross-fade. Still monochrome: a user glancing up learns “busy” from movement, not from colour, which leaves colour free to mean “your turn”.</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.7; color: #B0AEA5"><span style="color: #E8E6DC">shows when</span> ≥1 session actively generating or running a tool<br /><span style="color: #E8E6DC">enter</span> immediate, phase starts at 0% · no fade<br /><span style="color: #E8E6DC">debounce</span> hold ≥800ms before leaving, so bursty tool calls don't flicker<br /><span style="color: #E8E6DC">leaves on</span> last active session finishing, blocking, or failing</div>
+        </div>
+      </div>
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 18px; display: grid; grid-template-columns: minmax(190px, 230px) 1fr; gap: 20px; align-items: start">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="font-size: 16px; font-weight: 600">Done</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #D97757; padding: 3px 7px; border: 1px solid rgba(217,119,87,.4); border-radius: 5px">non-template</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+            <div style="background: #FAF9F5; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-done" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-done" /></svg></div>
+            <div style="background: #2A2A28; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-done" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-done" /></svg></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #E8E6DC; text-wrap: pretty">The payoff. On arrival the gem overshoots to 1.20 and settles at 1.00 while a ring blooms outward from behind it and vanishes — one gesture, 900ms, then complete stillness in #D97757. The overshoot is what makes it feel like an event rather than a colour swap; the stillness afterwards is what makes it safe to leave up, because a colour that stays put stops being urgent within seconds.</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.7; color: #B0AEA5"><span style="color: #E8E6DC">shows when</span> a session finished successfully and the user has not looked yet<br /><span style="color: #E8E6DC">bloom</span> once, 900ms · gem .86 → 1.20 @360ms → .97 → 1.00 · halo r11 scale .55→1.55 alpha .85→0<br /><span style="color: #E8E6DC">then</span> static orange, indefinitely<br /><span style="color: #E8E6DC">clears on</span> panel opened, or a new session starting (working outranks done)<br /><span style="color: #E8E6DC">preview note</span> looped at 6s here; ships as one-shot</div>
+        </div>
+      </div>
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 18px; display: grid; grid-template-columns: minmax(190px, 230px) 1fr; gap: 20px; align-items: start">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="font-size: 16px; font-weight: 600">Needs you</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #D97757; padding: 3px 7px; border: 1px solid rgba(217,119,87,.4); border-radius: 5px">non-template</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+            <div style="background: #FAF9F5; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-needs" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-needs" /></svg></div>
+            <div style="background: #2A2A28; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-needs" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-needs" /></svg></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #E8E6DC; text-wrap: pretty">Same orange as done, deliberately — inventing a second alert colour would make the palette ambiguous. These two are told apart by <em>behaviour</em>: done happened once and went still; needs-you keeps pinging outward every 3.2 seconds and will not stop until you deal with it. Motion outranks hue for peripheral detection, so this is also the state most likely to catch you mid-task.</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.7; color: #B0AEA5"><span style="color: #E8E6DC">shows when</span> a session is blocked on a permission prompt or a question<br /><span style="color: #E8E6DC">ping</span> 3.2s loop, two rings offset 1.6s · scale .5→1.5, alpha .8→0, ease-out<br /><span style="color: #E8E6DC">core</span> gem breathes 1.00↔1.05 in phase, so the glyph itself never goes flat<br /><span style="color: #E8E6DC">clears on</span> the prompt being answered — not on the panel opening</div>
+        </div>
+      </div>
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 18px; display: grid; grid-template-columns: minmax(190px, 230px) 1fr; gap: 20px; align-items: start">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="font-size: 16px; font-weight: 600">Failed</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #C2564A; padding: 3px 7px; border: 1px solid rgba(194,86,74,.45); border-radius: 5px">non-template</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+            <div style="background: #FAF9F5; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-failed" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-failed" /></svg></div>
+            <div style="background: #2A2A28; border-radius: 10px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 10px"><svg width="30" height="30" viewBox="0 0 36 36"><use href="#g-failed" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#g-failed" /></svg></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #E8E6DC; text-wrap: pretty">Muted red, fully static, and the orbit is broken: the front arc is dashed open so the ring no longer closes. That break is the point — a user who cannot separate #C2564A from #D97757 still sees a severed silhouette. Static because a failure is finished; animating it would imply something is still happening.</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.7; color: #B0AEA5"><span style="color: #E8E6DC">shows when</span> a session exited non-zero or crashed, unacknowledged<br /><span style="color: #E8E6DC">geometry</span> front arc dasharray 26 22 26 on pathLength 100<br /><span style="color: #E8E6DC">colour</span> #C2564A · no animation, ever<br /><span style="color: #E8E6DC">clears on</span> panel opened · outranked only by needs-you</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="width: 100%; max-width: 880px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid rgba(232,230,220,.14); padding-bottom: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #D97757">04</span>
+      <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em">Spinner style — two alternates</h2>
+    </div>
+    <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #E8E6DC; text-wrap: pretty">Settings offers three spinner styles. Precession is the default; these two exist because tolerance for peripheral motion varies a lot between people, and the setting is cheaper than losing a user who finds any movement distracting. All three share the same geometry, so switching never changes the glyph's footprint in the bar.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+        <div style="padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; align-items: center; gap: 9px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #D97757">i</span><span style="font-size: 16px; font-weight: 600">Quiet</span></div>
+          <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #E8E6DC; text-wrap: pretty">Same tipping motion, stripped to the minimum that still registers: the gem collapses to a 1.9pt core dot, the orbit becomes a hairline at 55% alpha, and the period stretches to six seconds. At a glance it looks like a static dot with a ring; only sustained attention reveals it moving. For people who want to know without being told.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(232,230,220,.12)">
+          <div style="background: #FAF9F5; color: #141413; height: 90px; display: flex; align-items: center; justify-content: center; gap: 16px"><svg width="48" height="48" viewBox="0 0 36 36"><use href="#s-quiet" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#s-quiet" /></svg></div>
+          <div style="background: #2A2A28; color: #FAF9F5; height: 90px; display: flex; align-items: center; justify-content: center; gap: 16px"><svg width="48" height="48" viewBox="0 0 36 36"><use href="#s-quiet" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#s-quiet" /></svg></div>
+        </div>
+        <div style="padding: 16px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.75; color: #B0AEA5">period 6.000s · 12fps, steps(36)<br />ry 5.0 → 1.1 → 5.0 · stroke .9 @alpha .55 constant<br />core circle r1.9 at 18,18 · gem does not rotate
+          <div style="display: flex; align-items: center; gap: 12px; padding-top: 12px">
+            <div style="background: #2A2A28; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; color: #FAF9F5"><svg width="26" height="26" viewBox="0 0 36 36"><use href="#s-quiet-static" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#s-quiet-static" /></svg></div>
+            <span style="color: #8C8A83; line-height: 1.5">Reduce Motion: ry 2.4,<br />stroke 1.1 @alpha .70</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+        <div style="padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; align-items: center; gap: 9px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #D97757">ii</span><span style="font-size: 16px; font-weight: 600">Pip</span></div>
+          <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #E8E6DC; text-wrap: pretty">The opposite trade: figure and ground swap, so the gem becomes a hollow outline and a single solid disc travels the orbit. Highest legibility of the three at 16pt, because a moving solid disc is the most robust form there is — and it eases at the left and right extremes, where a real orbiting body appears to slow. For people who want unambiguous progress.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(232,230,220,.12)">
+          <div style="background: #FAF9F5; color: #141413; height: 90px; display: flex; align-items: center; justify-content: center; gap: 16px"><svg width="48" height="48" viewBox="0 0 36 36"><use href="#s-pip" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#s-pip" /></svg></div>
+          <div style="background: #2A2A28; color: #FAF9F5; height: 90px; display: flex; align-items: center; justify-content: center; gap: 16px"><svg width="48" height="48" viewBox="0 0 36 36"><use href="#s-pip" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#s-pip" /></svg></div>
+        </div>
+        <div style="padding: 16px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.75; color: #B0AEA5">period 7.000s · 12fps, steps(10) per interval<br />pip r2.3 on offset-path = full ellipse<br />offset-distance 0 → 7 → 25 → 43 → 50 → 57 → 75 → 93 → 100%<br />(sine distribution: slow at both extremes)<br />gem outline stroke 1.5, joins round
+          <div style="display: flex; align-items: center; gap: 12px; padding-top: 12px">
+            <div style="background: #2A2A28; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; color: #FAF9F5"><svg width="26" height="26" viewBox="0 0 36 36"><use href="#s-pip-static" /></svg><svg width="16" height="16" viewBox="0 0 36 36"><use href="#s-pip-static" /></svg></div>
+            <span style="color: #8C8A83; line-height: 1.5">Reduce Motion: pip parked<br />low-right, clearly off-centre</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="width: 100%; max-width: 880px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid rgba(232,230,220,.14); padding-bottom: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #D97757">05</span>
+      <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em">Panel — dots, icons, empty state</h2>
+    </div>
+    <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #E8E6DC; text-wrap: pretty">The panel is the detail view: one row per session, a state dot on the left, an action icon on the right. Here every session's state is visible at once, so the dots must separate from each other rather than from a neutral ground — and they must do it without colour, since roughly one in twelve men cannot reliably split orange from red. Each state therefore gets its own <em>form</em>: hollow, dashed, solid-round, solid-angular, struck. Desaturate the whole column and nothing is lost.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start">
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 14px">
+        <div style="font-size: 13px; font-weight: 600; color: #E8E6DC">State dots — 8×8pt</div>
+        <div style="display: grid; grid-template-columns: 40px 22px 1fr; gap: 12px 14px; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #B0AEA5; line-height: 1.5">
+          <svg width="30" height="30" viewBox="0 0 8 8"><use href="#d-idle" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-idle" /></svg>
+          <span><span style="color: #FAF9F5">idle</span> hollow circle r2.6, stroke 1.2, #B0AEA5 — session attached, nothing running</span>
+          <svg width="30" height="30" viewBox="0 0 8 8"><use href="#d-working" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-working" /></svg>
+          <span><span style="color: #FAF9F5">working</span> dashed ring 4.1/2.1, rotates 360°/4s at 12fps — the only dot that moves</span>
+          <svg width="30" height="30" viewBox="0 0 8 8"><use href="#d-done" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-done" /></svg>
+          <span><span style="color: #FAF9F5">done</span> solid disc r3.1, accent — filled = finished</span>
+          <svg width="30" height="30" viewBox="0 0 8 8"><use href="#d-needs" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-needs" /></svg>
+          <span><span style="color: #FAF9F5">needs you</span> solid diamond, accent — corners read as urgency at 8pt</span>
+          <svg width="30" height="30" viewBox="0 0 8 8"><use href="#d-failed" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-failed" /></svg>
+          <span><span style="color: #FAF9F5">failed</span> hollow circle + slash, #C2564A — struck through</span>
+        </div>
+        <div style="display: flex; gap: 8px; border-top: 1px solid rgba(232,230,220,.1); padding-top: 14px">
+          <div style="flex: 1; background: #FAF9F5; border-radius: 10px; padding: 13px; display: flex; align-items: center; justify-content: space-around"><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-idle" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-working" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-done" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-needs" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-failed" /></svg></div>
+          <div style="flex: 1; background: #2A2A28; border-radius: 10px; padding: 13px; display: flex; align-items: center; justify-content: space-around"><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-idle" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-working" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-done" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-needs" /></svg><svg width="8" height="8" viewBox="0 0 8 8"><use href="#d-failed" /></svg></div>
+        </div>
+      </div>
+
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 14px">
+        <div style="font-size: 13px; font-weight: 600; color: #E8E6DC">Row actions — 16×16pt</div>
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px">
+          <div style="background: #FAF9F5; color: #141413; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-terminal" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-terminal" /></svg></div>
+          <div style="background: #FAF9F5; color: #141413; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-editor" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-editor" /></svg></div>
+          <div style="background: #FAF9F5; color: #141413; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-clear" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-clear" /></svg></div>
+          <div style="background: #FAF9F5; color: #141413; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-settings" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-settings" /></svg></div>
+          <div style="background: #FAF9F5; color: #141413; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-reveal" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-reveal" /></svg></div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px">
+          <div style="background: #2A2A28; color: #FAF9F5; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-terminal" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-terminal" /></svg></div>
+          <div style="background: #2A2A28; color: #FAF9F5; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-editor" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-editor" /></svg></div>
+          <div style="background: #2A2A28; color: #FAF9F5; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-clear" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-clear" /></svg></div>
+          <div style="background: #2A2A28; color: #FAF9F5; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-settings" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-settings" /></svg></div>
+          <div style="background: #2A2A28; color: #FAF9F5; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="24" height="24" viewBox="0 0 16 16"><use href="#i-reveal" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-reveal" /></svg></div>
+        </div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.7; color: #B0AEA5">
+          <span style="color: #E8E6DC">terminal</span> focus the session's terminal window — on every row<br />
+          <span style="color: #E8E6DC">editor</span> open the working directory in the editor — replaces terminal when the session was launched from one<br />
+          <span style="color: #E8E6DC">clear finished</span> header action, drops all done + failed rows<br />
+          <span style="color: #E8E6DC">settings</span> header action, spinner style and launch options<br />
+          <span style="color: #E8E6DC">reveal in Finder</span> shown on done rows, where the output is the point<br />
+          <span style="height: 8px; display: block"></span>
+          stroke 1.3 uniform · caps and joins round · 1.3pt optical margin inside the 16pt box · solid fill only where a stroke would close up at 16pt
+        </div>
+      </div>
+
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; align-items: start">
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 8px; display: flex; flex-direction: column">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E8E6DC">Sessions</span>
+          <span style="display: flex; gap: 12px; color: #B0AEA5"><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-clear" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-settings" /></svg></span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 26px 20px 34px">
+          <svg width="132" height="104" viewBox="0 0 132 104"><use href="#empty-gem" /></svg>
+          <div style="font-size: 13.5px; color: #E8E6DC">Nothing running</div>
+          <div style="font-size: 12px; color: #8C8A83; text-align: center; max-width: 210px; line-height: 1.5">Start Claude Code in a terminal and it shows up here.</div>
+        </div>
+      </div>
+      <div style="background: #1C1C1A; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 8px; display: flex; flex-direction: column">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E8E6DC">Sessions</span>
+          <span style="display: flex; gap: 12px; color: #B0AEA5"><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-clear" /></svg><svg width="16" height="16" viewBox="0 0 16 16"><use href="#i-settings" /></svg></span>
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <div style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; background: rgba(232,230,220,.05)">
+            <svg width="8" height="8" viewBox="0 0 8 8" style="flex: none"><use href="#d-working" /></svg>
+            <span style="flex: 1; font-size: 12.5px; color: #FAF9F5">api-gateway</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8C8A83">2m 14s</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" style="color: #B0AEA5; flex: none"><use href="#i-terminal" /></svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 9px 12px">
+            <svg width="8" height="8" viewBox="0 0 8 8" style="flex: none"><use href="#d-needs" /></svg>
+            <span style="flex: 1; font-size: 12.5px; color: #FAF9F5">design-tokens</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8C8A83">waiting</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" style="color: #B0AEA5; flex: none"><use href="#i-editor" /></svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 9px 12px">
+            <svg width="8" height="8" viewBox="0 0 8 8" style="flex: none"><use href="#d-done" /></svg>
+            <span style="flex: 1; font-size: 12.5px; color: #FAF9F5">marketing-site</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8C8A83">done · 6m</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" style="color: #B0AEA5; flex: none"><use href="#i-reveal" /></svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 9px 12px">
+            <svg width="8" height="8" viewBox="0 0 8 8" style="flex: none"><use href="#d-failed" /></svg>
+            <span style="flex: 1; font-size: 12.5px; color: #FAF9F5">infra-migrate</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8C8A83">exit 1</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" style="color: #B0AEA5; flex: none"><use href="#i-terminal" /></svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 9px 12px">
+            <svg width="8" height="8" viewBox="0 0 8 8" style="flex: none"><use href="#d-idle" /></svg>
+            <span style="flex: 1; font-size: 12.5px; color: #B0AEA5">scratch</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8C8A83">idle</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" style="color: #B0AEA5; flex: none"><use href="#i-terminal" /></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #B0AEA5; text-wrap: pretty">The empty state uses the gem at 1.8× in outline only, with one accent pip resting at the orbit's lowest point — the orbit is parked, not broken, which is the difference between “nothing to do” and “something went wrong”. It is deliberately small and low-contrast: an empty panel is the normal state of a monitoring tool, not a failure, so it neither apologises nor fills the space with encouragement.</p>
+  </section>
+
+  <section style="width: 100%; max-width: 880px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid rgba(232,230,220,.14); padding-bottom: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #D97757">06</span>
+      <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em">Implementation notes</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+      <div style="background: #0E0E0D; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.85; color: #B0AEA5">
+        <div style="color: #D97757">RENDERING</div>
+        · every glyph is one 36×36 vector, no rasters<br />
+        · idle, working and both spinner alternates ship as<br />&nbsp;&nbsp;template images — alpha is uniform per shape,<br />&nbsp;&nbsp;never interpolated across pixels<br />
+        · done, needs-you and failed ship non-template,<br />&nbsp;&nbsp;tinted at draw time from one accent constant<br />
+        · 22pt artwork in a 36pt canvas keeps macOS from<br />&nbsp;&nbsp;clipping or re-padding the item
+      </div>
+      <div style="background: #0E0E0D; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.85; color: #B0AEA5">
+        <div style="color: #D97757">TIMING &amp; POWER</div>
+        · one shared 12fps tick drives everything<br />
+        · frame index = floor(t × 12) mod (duration × 12)<br />
+        · every loop is period-closed: last keyframe == first<br />
+        · working: 4s ring ÷ 8s gem — least common multiple<br />&nbsp;&nbsp;8s, so the pair repeats exactly<br />
+        · suspend the tick when the menu bar is hidden or<br />&nbsp;&nbsp;the display sleeps; resume at phase 0
+      </div>
+      <div style="background: #0E0E0D; border: 1px solid rgba(232,230,220,.12); border-radius: 16px; padding: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.85; color: #B0AEA5">
+        <div style="color: #D97757">ACCESSIBILITY</div>
+        · Reduce Motion swaps each animated state for its<br />&nbsp;&nbsp;static frame — never just pauses at phase 0,<br />&nbsp;&nbsp;which would look identical to idle<br />
+        · no state depends on colour alone: done/needs-you<br />&nbsp;&nbsp;differ by motion, failed by broken geometry<br />
+        · panel dots carry five distinct forms<br />
+        · every state needs a VoiceOver label; the glyph is<br />&nbsp;&nbsp;one control, not five images
+      </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;animate&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Preview&quot; },
+  &quot;showConstructionGrid&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Preview&quot; },
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#D97757&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#D97757&quot;, &quot;#C98A3E&quot;, &quot;#B8845F&quot;, &quot;#CF6B4A&quot;], &quot;section&quot;: &quot;Colour&quot; },
+  &quot;failedRed&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#C2564A&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#C2564A&quot;, &quot;#A8453A&quot;, &quot;#9E4238&quot;], &quot;section&quot;: &quot;Colour&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const grid = this.props.showConstructionGrid ?? true;
+    return {
+      gridOpacity: grid ? 0.35 : 0,
+      gridOpacityStrong: grid ? 0.6 : 0,
+    };
+  }
+  componentDidMount() { this._sync(); }
+  componentDidUpdate() { this._sync(); }
+  _sync() {
+    const root = document.querySelector('[style*="--anim"]');
+    if (!root) return;
+    root.style.setProperty('--anim', (this.props.animate ?? true) ? 'running' : 'paused');
+    root.style.setProperty('--accent', this.props.accent ?? '#D97757');
+    root.style.setProperty('--red', this.props.failedRed ?? '#C2564A');
+  }
+}
+</script>
+</body>
+</html>
