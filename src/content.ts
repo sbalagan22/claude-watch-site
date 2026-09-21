@@ -106,8 +106,6 @@ export const siteContent = {
     links: [
       { label: "Changelog", href: "/changelog" },
       { label: "GitHub", href: GITHUB_URL },
-      { label: "Support", href: "mailto:support@claudewatch.app" },
-      { label: "X", href: "https://x.com/claude_watch" },
     ],
     disclaimer:
       "Not affiliated with Anthropic. Claude and Claude Code are trademarks of Anthropic, PBC.",
