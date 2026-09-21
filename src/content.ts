@@ -7,6 +7,9 @@ export type MarkState = "idle" | "working" | "needsYou" | "done" | "failed";
 
 export const GITHUB_URL = "https://github.com/sbalagan22/claude-watch";
 export const GITHUB_RELEASES_URL = `${GITHUB_URL}/releases/latest`;
+// The asset name must match the .dmg attached to the "latest" GitHub
+// release exactly, or this 404s instead of downloading.
+export const GITHUB_LATEST_DMG_URL = `${GITHUB_URL}/releases/latest/download/ClaudeWatch-1.0.dmg`;
 
 export const siteContent = {
   meta: {
@@ -30,7 +33,7 @@ export const siteContent = {
     githubCta: "View on GitHub",
     requirements: "macOS 14 or later · Apple silicon and Intel · Free",
     comingSoon: "Available soon",
-    downloadUrl: process.env.NEXT_PUBLIC_DOWNLOAD_URL || GITHUB_RELEASES_URL,
+    downloadUrl: process.env.NEXT_PUBLIC_DOWNLOAD_URL || GITHUB_LATEST_DMG_URL,
     starPrompt: "Like it? A star on GitHub helps other people find it.",
   },
 
